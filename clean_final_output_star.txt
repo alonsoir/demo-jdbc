@@ -1,0 +1,12 @@
+star 1 appeared 91003 times of 1000000. Frequency is 9.1003 %
+star 10 appeared 191128 times of 1000000. Frequency is 19.1128 %
+star 11 appeared 191576 times of 1000000. Frequency is 19.1576 %
+star 12 appeared 90536 times of 1000000. Frequency is 9.0536 %
+star 2 appeared 190755 times of 1000000. Frequency is 19.0755 %
+star 3 appeared 190450 times of 1000000. Frequency is 19.045 %
+star 4 appeared 191184 times of 1000000. Frequency is 19.1184 %
+star 5 appeared 190447 times of 1000000. Frequency is 19.0447 %
+star 6 appeared 190583 times of 1000000. Frequency is 19.0583 %
+star 7 appeared 190998 times of 1000000. Frequency is 19.0998 %
+star 8 appeared 191171 times of 1000000. Frequency is 19.1171 %
+star 9 appeared 100169 times of 1000000. Frequency is 10.0169 %
