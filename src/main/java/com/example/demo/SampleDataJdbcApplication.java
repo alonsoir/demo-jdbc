@@ -18,10 +18,15 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+@EnableAutoConfiguration
 @SpringBootApplication
 public class SampleDataJdbcApplication {
 
@@ -33,7 +38,8 @@ public class SampleDataJdbcApplication {
 	List<OutputEntity> inputListWinners = null;
 	List<OutputEntity> inputListStars = null;
 	private static final String SPACE = " ";
-
+	private StringBuffer sbWinners = new StringBuffer();
+	private StringBuffer sbStars = new StringBuffer();
 	/***
 	 * 
 	 * @param args [1] is final_output_winners.txt args [2] is
@@ -43,17 +49,31 @@ public class SampleDataJdbcApplication {
 	 */
 	public static void main(String[] args) {
 
-		if (args.length != 2) {
+		if (args.length != 3) {
 			System.err.println(
 					"Please provide two arguments, PATH_TO/clean_final_output_winners.txt PATH_TO/clean_final_output_stars.txt");
 			System.exit(-1);
 		}
-		pathToWinner = args[0];
-		pathToStar = args[1];
+		
+		pathToWinner = args[1];
+		pathToStar = args[2];
 		SpringApplication.run(SampleDataJdbcApplication.class);
 
 	}
 
+	@RequestMapping("/")
+	String home() {
+		return "Hello World!, Alonso";
+	}
+
+	@RequestMapping("/frequencies")
+	String getFrequencies() {
+		StringBuffer sbTotal = new StringBuffer();
+		sbTotal.append(sbWinners.toString());
+		sbTotal.append(sbStars.toString());
+		return sbTotal.toString();
+	}
+	
 	private static Function<String, OutputEntity> mapToItemWinners = (line) -> {
 		String[] p = line.split(SPACE);// a CSV has comma separated lines
 		// It is waste to use this pojo...
@@ -135,7 +155,8 @@ public class SampleDataJdbcApplication {
 		jdbcTemplate
 				.query("SELECT id, star,frequency FROM STARS ORDER BY frequency DESC",
 						(rs, rowNum) -> new Stars(rs.getLong("id"), rs.getInt("star"), rs.getFloat("frequency")))
-				.forEach(star -> System.out.println(star.toString()));
+				// .forEach(star -> System.out.println(star.toString()));
+				.forEach(star -> sbStars.append("<p align=\"center\">").append(star.toString()).append("</p>"));
 	}
 
 	private void insert_And_Show_Winners_Order_By_Frequency() {
@@ -154,7 +175,8 @@ public class SampleDataJdbcApplication {
 		jdbcTemplate
 				.query("SELECT id, winner,frequency FROM WINNERS ORDER BY frequency DESC",
 						(rs, rowNum) -> new Winners(rs.getLong("id"), rs.getInt("winner"), rs.getFloat("frequency")))
-				.forEach(winner -> System.out.println(winner.toString()));
+				// .forEach(winner -> System.out.println(winner.toString()));
+				.forEach(winner -> sbWinners.append("<p align=\"center\">").append(winner.toString()).append("</p>"));
 	}
 
 	private void prepareJDBCTables() {
