@@ -70,7 +70,7 @@ public class Winners {
 	}
 	@Override
 	public String toString() {
-		return "Winners [winner=" + winner + ", frequency=" + frequency + "]";
+		return "Winners [winner=" + winner + ", frequency=" + frequency + " %]";
 	}
 	
 	

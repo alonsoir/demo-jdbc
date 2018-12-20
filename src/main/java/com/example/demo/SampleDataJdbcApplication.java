@@ -44,7 +44,8 @@ public class SampleDataJdbcApplication {
 	public static void main(String[] args) {
 
 		if (args.length != 2) {
-			System.err.println("Please provide two arguments, PATH_TO/clean_final_output_winners.txt PATH_TO/clean_final_output_stars.txt");
+			System.err.println(
+					"Please provide two arguments, PATH_TO/clean_final_output_winners.txt PATH_TO/clean_final_output_stars.txt");
 			System.exit(-1);
 		}
 		pathToWinner = args[0];
@@ -57,8 +58,16 @@ public class SampleDataJdbcApplication {
 		String[] p = line.split(SPACE);// a CSV has comma separated lines
 		// It is waste to use this pojo...
 		OutputEntity item = new OutputEntity();
-		item.setWinner1(Integer.valueOf(p[1]));
-		item.setFrequency(Float.valueOf(p[9]));
+		try {
+			if (!"Winner1".equals(p[1])) {
+				item.setWinner1(Integer.valueOf(p[1]));
+				item.setFrequency(Float.valueOf(p[9]));
+			}
+		} catch (NumberFormatException e) {
+			// no need to print this message to the terminal
+			// System.out.println("Cannot convert to a number." + e.getLocalizedMessage());
+
+		}
 		return item;
 
 	};
@@ -67,14 +76,23 @@ public class SampleDataJdbcApplication {
 		String[] p = line.split(SPACE);// a CSV has comma separated lines
 		// It is waste to use this pojo...
 		OutputEntity item = new OutputEntity();
-		item.setStar1(Integer.valueOf(p[1]));
-		item.setFrequency(Float.valueOf(p[9]));
+		try {
+			if (!"Star1".equals(p[1])) {
+				item.setStar1(Integer.valueOf(p[1]));
+				item.setFrequency(Float.valueOf(p[9]));
+			}
+		} catch (NumberFormatException e) {
+			// no need to print this message to the terminal
+			// System.out.println("Cannot convert to a number." + e.getLocalizedMessage());
+
+		}
 		return item;
 
 	};
 
 	/***
-	 * Spring call this method after creating every dependency. Probably not necessary.
+	 * Spring call this method after creating every dependency. Probably not
+	 * necessary.
 	 */
 	@PostConstruct
 	public void processFiles() {
@@ -88,11 +106,11 @@ public class SampleDataJdbcApplication {
 			BufferedReader brStars = importStarsFromInputFile();
 
 			prepareJDBCTables();
-			
+
 			insert_And_Show_Winners_Order_By_Frequency();
 
 			insert_And_Show_Stars_Order_By_Frequency();
-			
+
 			brWinners.close();
 			brStars.close();
 
@@ -105,42 +123,48 @@ public class SampleDataJdbcApplication {
 		Long idStar = 1l;
 		List<Stars> listStars = new ArrayList<Stars>();
 		for (OutputEntity entity : inputListStars) {
-			Stars entityToCreate = new Stars();
-			entityToCreate.setId(idStar++);
-			entityToCreate.setFrequency(entity.getFrequency());
-			entityToCreate.setStar(entity.getStar1());
-			listStars .add(entityToCreate);
+			if (entity.getFrequency() != null) {
+				Stars entityToCreate = new Stars();
+				entityToCreate.setId(idStar++);
+				entityToCreate.setFrequency(entity.getFrequency());
+				entityToCreate.setStar(entity.getStar1());
+				listStars.add(entityToCreate);
+			}
 		}
 		importStars(listStars);
-		jdbcTemplate.query("SELECT id, star,frequency FROM STARS ORDER BY frequency DESC",
-				(rs, rowNum) -> new Stars(rs.getLong("id"), rs.getInt("star"), rs.getFloat("frequency")))
-				.forEach(star -> System.out.println(star .toString()));
+		jdbcTemplate
+				.query("SELECT id, star,frequency FROM STARS ORDER BY frequency DESC",
+						(rs, rowNum) -> new Stars(rs.getLong("id"), rs.getInt("star"), rs.getFloat("frequency")))
+				.forEach(star -> System.out.println(star.toString()));
 	}
 
 	private void insert_And_Show_Winners_Order_By_Frequency() {
 		Long idWinner = 1l;
 		List<Winners> listWinners = new ArrayList<Winners>();
 		for (OutputEntity entity : inputListWinners) {
-			Winners entityToCreate = new Winners();
-			entityToCreate.setId(idWinner++);
-			entityToCreate.setFrequency(entity.getFrequency());
-			entityToCreate.setWinner(entity.getWinner1());
-			listWinners.add(entityToCreate);
+			if (entity.getFrequency() != null) {
+				Winners entityToCreate = new Winners();
+				entityToCreate.setId(idWinner++);
+				entityToCreate.setFrequency(entity.getFrequency());
+				entityToCreate.setWinner(entity.getWinner1());
+				listWinners.add(entityToCreate);
+			}
 		}
 		importWinners(listWinners);
-		jdbcTemplate.query("SELECT id, winner,frequency FROM WINNERS ORDER BY frequency DESC",
-				(rs, rowNum) -> new Winners(rs.getLong("id"), rs.getInt("winner"), rs.getFloat("frequency")))
+		jdbcTemplate
+				.query("SELECT id, winner,frequency FROM WINNERS ORDER BY frequency DESC",
+						(rs, rowNum) -> new Winners(rs.getLong("id"), rs.getInt("winner"), rs.getFloat("frequency")))
 				.forEach(winner -> System.out.println(winner.toString()));
 	}
 
 	private void prepareJDBCTables() {
 		jdbcTemplate.execute("DROP TABLE WINNERS IF EXISTS");
-		jdbcTemplate.execute("CREATE TABLE WINNERS (\n" + "	id SERIAL,\n" + "	winner INTEGER,\n"
-				+ "	frequency FLOAT\n" + ")");
-		
+		jdbcTemplate.execute(
+				"CREATE TABLE WINNERS (\n" + "	id SERIAL,\n" + "	winner INTEGER,\n" + "	frequency FLOAT\n" + ")");
+
 		jdbcTemplate.execute("DROP TABLE STARS IF EXISTS");
-		jdbcTemplate.execute("CREATE TABLE STARS (\n" + "	id SERIAL,\n" + "	star INTEGER,\n"
-				+ "	frequency FLOAT\n" + ")");
+		jdbcTemplate.execute(
+				"CREATE TABLE STARS (\n" + "	id SERIAL,\n" + "	star INTEGER,\n" + "	frequency FLOAT\n" + ")");
 	}
 
 	private BufferedReader importStarsFromInputFile() throws FileNotFoundException {
@@ -176,18 +200,17 @@ public class SampleDataJdbcApplication {
 	}
 
 	private final void importStars(final List<Stars> listStars) {
-		jdbcTemplate.batchUpdate("INSERT INTO STARS(star,frequency) VALUES (?,?)",
-				new BatchPreparedStatementSetter() {
-					public void setValues(PreparedStatement ps, int i) throws SQLException {
-						Stars star= listStars.get(i);
-						ps.setInt(1, star.getStar());
-						ps.setFloat(2, star.getFrequency());
-					}
+		jdbcTemplate.batchUpdate("INSERT INTO STARS(star,frequency) VALUES (?,?)", new BatchPreparedStatementSetter() {
+			public void setValues(PreparedStatement ps, int i) throws SQLException {
+				Stars star = listStars.get(i);
+				ps.setInt(1, star.getStar());
+				ps.setFloat(2, star.getFrequency());
+			}
 
-					public int getBatchSize() {
-						return listStars.size();
-					}
-				});
+			public int getBatchSize() {
+				return listStars.size();
+			}
+		});
 
 	}
 }

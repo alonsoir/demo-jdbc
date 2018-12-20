@@ -70,7 +70,7 @@ public class Stars {
 	}
 	@Override
 	public String toString() {
-		return "Stars [star=" + star + ", frequency=" + frequency + "]";
+		return "Stars [star=" + star + ", frequency=" + frequency + " %]";
 	}
 	
 	
