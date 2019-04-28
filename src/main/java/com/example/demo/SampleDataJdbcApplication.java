@@ -40,6 +40,9 @@ public class SampleDataJdbcApplication {
 	private static final String SPACE = " ";
 	private StringBuffer sbWinners = new StringBuffer();
 	private StringBuffer sbStars = new StringBuffer();
+	private List alWinners = new ArrayList<String>();
+	private List alStars = new ArrayList<String>();
+
 	/***
 	 * 
 	 * @param args [1] is final_output_winners.txt args [2] is
@@ -73,7 +76,45 @@ public class SampleDataJdbcApplication {
 		sbTotal.append(sbStars.toString());
 		return sbTotal.toString();
 	}
-	
+
+	@RequestMapping("/prediction")
+	String getPrediction(){
+		StringBuffer sbTotal = new StringBuffer();
+		String winner1 = alWinners.get(0).toString();
+		String winner2 = alWinners.get(10).toString();
+		String winner3 = alWinners.get(25).toString();
+		String winner4 = alWinners.get(35).toString();
+		String winner5 = alWinners.get(50).toString();
+		String star1 = alStars.get(0).toString();
+		String star2= alStars.get(1).toString();
+
+		//String star2 = alStars.get(50).toString();
+		sbTotal.append(winner1);
+		sbTotal.append("<p/>");
+		sbTotal.append(winner2);
+		sbTotal.append("<p/>");
+		sbTotal.append(winner3);
+		sbTotal.append("<p/>");
+		sbTotal.append(winner4);
+		sbTotal.append("<p/>");
+		sbTotal.append(winner5);
+		sbTotal.append("<p/>");
+		sbTotal.append(star1);
+		sbTotal.append("<p/>");
+		sbTotal.append(star2);
+		sbTotal.append("<p/>");
+		/*
+
+		sbTotal.append(winner5);
+
+		sbTotal.append(star2)
+		*/;
+
+
+
+		return sbTotal.toString();
+	}
+
 	private static Function<String, OutputEntity> mapToItemWinners = (line) -> {
 		String[] p = line.split(SPACE);// a CSV has comma separated lines
 		// It is waste to use this pojo...
@@ -131,6 +172,9 @@ public class SampleDataJdbcApplication {
 
 			insert_And_Show_Stars_Order_By_Frequency();
 
+			showWinners();
+			showStars();
+
 			brWinners.close();
 			brStars.close();
 
@@ -159,6 +203,49 @@ public class SampleDataJdbcApplication {
 				.forEach(star -> sbStars.append("<p align=\"center\">").append(star.toString()).append("</p>"));
 	}
 
+	private void showWinners(){
+
+		Long idWinner = 1l;
+		List<Winners> listWinners = new ArrayList<Winners>();
+		for (OutputEntity entity : inputListWinners) {
+			if (entity.getFrequency() != null) {
+				Winners entityToCreate = new Winners();
+				entityToCreate.setId(idWinner++);
+				entityToCreate.setFrequency(entity.getFrequency());
+				entityToCreate.setWinner(entity.getWinner1());
+				listWinners.add(entityToCreate);
+			}
+		}
+		importWinners(listWinners);
+		jdbcTemplate
+				.query("SELECT id, winner,frequency FROM WINNERS ORDER BY frequency DESC",
+						(rs, rowNum) -> new Winners(rs.getLong("id"), rs.getInt("winner"), rs.getFloat("frequency")))
+				// .forEach(winner -> System.out.println(winner.toString()));
+				.forEach(winner -> alWinners.add(winner.toString()));
+
+	}
+
+	private void showStars(){
+
+		Long idStar = 1l;
+		List<Stars> listStars = new ArrayList<Stars>();
+		for (OutputEntity entity : inputListStars) {
+			if (entity.getFrequency() != null) {
+				Stars entityToCreate = new Stars();
+				entityToCreate.setId(idStar++);
+				entityToCreate.setFrequency(entity.getFrequency());
+				entityToCreate.setStar(entity.getStar1());
+				listStars.add(entityToCreate);
+			}
+		}
+		importStars(listStars);
+		jdbcTemplate
+				.query("SELECT id, star,frequency FROM STARS ORDER BY frequency DESC",
+						(rs, rowNum) -> new Stars(rs.getLong("id"), rs.getInt("star"), rs.getFloat("frequency")))
+				// .forEach(star -> System.out.println(star.toString()));
+				.forEach(star -> alStars.add(star.toString()));
+
+	}
 	private void insert_And_Show_Winners_Order_By_Frequency() {
 		Long idWinner = 1l;
 		List<Winners> listWinners = new ArrayList<Winners>();
