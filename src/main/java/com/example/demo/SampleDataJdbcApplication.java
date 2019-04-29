@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -80,13 +81,31 @@ public class SampleDataJdbcApplication {
 	@RequestMapping("/prediction")
 	String getPrediction(){
 		StringBuffer sbTotal = new StringBuffer();
-		String winner1 = alWinners.get(0).toString();
-		String winner2 = alWinners.get(10).toString();
-		String winner3 = alWinners.get(25).toString();
-		String winner4 = alWinners.get(35).toString();
-		String winner5 = alWinners.get(50).toString();
-		String star1 = alStars.get(0).toString();
-		String star2= alStars.get(1).toString();
+		int sizeWinners = alWinners.size();
+		int sizeStars = alStars.size();
+		//System.out.println("There are " + sizeWinners + " winners and " + sizeStars + " stars...");
+		Random r = new Random();
+		int nextWinner = r.nextInt((sizeWinners -1) + 1);
+		//System.out.println("nextWinner is " + nextWinner );
+		String winner1 = alWinners.get(nextWinner).toString();
+		nextWinner = r.nextInt((sizeWinners -1) + 1);
+		//System.out.println("nextWinner is " + nextWinner );
+		String winner2 = alWinners.get(nextWinner).toString();
+		nextWinner = r.nextInt((sizeWinners -1) + 1);
+		//System.out.println("nextWinner is " + nextWinner );
+		String winner3 = alWinners.get(nextWinner).toString();
+		nextWinner = r.nextInt((sizeWinners -1) + 1);
+		//System.out.println("nextWinner is " + nextWinner );
+		String winner4 = alWinners.get(nextWinner).toString();
+		nextWinner = r.nextInt((sizeWinners -1) + 1);
+		//System.out.println("nextWinner is " + nextWinner );
+		String winner5 = alWinners.get(nextWinner).toString();
+		int nextStar = r.nextInt((sizeStars -1) + 1);
+		//System.out.println("nextStar is " + nextStar );
+		String star1 = alStars.get(nextStar ).toString();
+		nextStar = r.nextInt((sizeStars -1) + 1);
+		//System.out.println("nextStar is " + nextStar );
+		String star2= alStars.get(nextStar ).toString();
 
 		//String star2 = alStars.get(50).toString();
 		sbTotal.append(winner1);
