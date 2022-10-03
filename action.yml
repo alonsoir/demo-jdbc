@@ -1,0 +1,9 @@
+# action.yml
+name: 'demo-jdbc'
+description: 'A demo to pick numbers from euromillions...'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - clean_final_output_winners.txt
+    - clean_final_output_star.txt
