@@ -45,43 +45,45 @@ A tiny demo with spring-boot-jdbc support
 
 # To Run
 
-  java -jar target/demo-jdbc-0.0.1-SNAPSHOT.jar clean_final_output_winners.txt clean_final_output_star.txt
+    java -jar target/demo-jdbc-0.0.1-SNAPSHOT.jar clean_final_output_winners.txt clean_final_output_star.txt
 
-  ┌<▸> ~/g/demo-jdbc
-  └➤ docker run -it -d -p 8080:8080 euromillions-test-java8 clean_final_output_winners.txt clean_final_output_star.txt
-  b24e5f9baba8de7126eca3c079d48970bc40d2ab7f7962aea7cbba0618caae45
-  ┌<▸> ~/g/demo-jdbc
-  └➤ docker container ls                                                                                              
-  CONTAINER ID   IMAGE                                  COMMAND                  CREATED         STATUS         PORTS                    NAMES
-  b24e5f9baba8   euromillions-test-java8                "/entrypoint.sh clea…"   9 seconds ago   Up 8 seconds   0.0.0.0:8080->8080/tcp   jovial_sutherland
-  4adeb5a5f558   aquasec/trivy-docker-extension:0.4.3   "/bin/sh -c /creds-s…"   2 months ago    Up 4 hours                              aquasec_trivy-docker-extension-desktop-extension-service
-  ┌<▸> ~/g/demo-jdbc
-  └➤ docker logs b24    
-  Hello Alonso, running this little shit...
-  ::set-output name=time::Mon Oct  3 15:22:24 UTC 2022
+    ┌<▸> ~/g/demo-jdbc
+    └➤ docker run -it -d -p 8080:8080 euromillions-test-java8 clean_final_output_winners.txt clean_final_output_star.txt
+    b24e5f9baba8de7126eca3c079d48970bc40d2ab7f7962aea7cbba0618caae45
 
-    .   ____          _            __ _ _
-   /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-  ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
-   \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-    '  |____| .__|_| |_|_| |_\__, | / / / /
-   =========|_|==============|___/=/_/_/_/
-   :: Spring Boot ::        (v2.1.1.RELEASE)
+    ┌<▸> ~/g/demo-jdbc
+    └➤ docker container ls                                                                                              
+    CONTAINER ID   IMAGE                                  COMMAND                  CREATED         STATUS         PORTS                    NAMES
+    b24e5f9baba8   euromillions-test-java8                "/entrypoint.sh clea…"   9 seconds ago   Up 8 seconds   0.0.0.0:8080->8080/tcp   jovial_sutherland
+    4adeb5a5f558   aquasec/trivy-docker-extension:0.4.3   "/bin/sh -c /creds-s…"   2 months ago    Up 4 hours                              aquasec_trivy-docker-extension-desktop-extension-service
 
-  2022-10-03 15:22:24.834  INFO 8 --- [           main] c.e.demo.SampleDataJdbcApplication       : Starting SampleDataJdbcApplication v0.0.1-SNAPSHOT on b24e5f9baba8 with PID 8 (/app.jar started by root in /)
-  2022-10-03 15:22:24.838  INFO 8 --- [           main] c.e.demo.SampleDataJdbcApplication       : No active profile set, falling back to default profiles: default
-  2022-10-03 15:22:25.962  INFO 8 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-  2022-10-03 15:22:25.991  INFO 8 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-  2022-10-03 15:22:25.991  INFO 8 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
-  2022-10-03 15:22:26.001  INFO 8 --- [           main] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/usr/lib/jvm/java-1.8-openjdk/jre/lib/amd64/server:/usr/lib/jvm/java-1.8-openjdk/jre/lib/amd64:/usr/lib/jvm/java-1.8-openjdk/jre/../lib/amd64:/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib]
-  2022-10-03 15:22:26.064  INFO 8 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-  2022-10-03 15:22:26.064  INFO 8 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1189 ms
-  2022-10-03 15:22:26.164  INFO 8 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-  2022-10-03 15:22:26.418  INFO 8 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-  2022-10-03 15:22:26.628  INFO 8 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-  2022-10-03 15:22:26.832  INFO 8 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-  2022-10-03 15:22:26.835  INFO 8 --- [           main] c.e.demo.SampleDataJdbcApplication       : Started SampleDataJdbcApplication in 2.3 seconds (JVM running for 2.774)
+    ┌<▸> ~/g/demo-jdbc
+    └➤ docker logs b24    
+    Hello Alonso, running this little shit...
+    ::set-output name=time::Mon Oct  3 15:22:24 UTC 2022
 
-  ┌<▸> ~/g/demo-jdbc
-  └➤ curl 0.0.0.0:8080/prediction
-  Winners [winner=21, frequency=13.5639 %]<p/>Winners [winner=7, frequency=7.7793 %]<p/>Winners [winner=49, frequency=5.6587 %]<p/>Winners [winner=31, frequency=13.5011 %]<p/>Winners [winner=4, frequency=5.3649 %]<p/>Stars [star=9, frequency=10.0169 %]<p/>Stars [star=3, frequency=19.045 %]<p/>%
+      .   ____          _            __ _ _
+     /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+    ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+     \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+      '  |____| .__|_| |_|_| |_\__, | / / / /
+     =========|_|==============|___/=/_/_/_/
+     :: Spring Boot ::        (v2.1.1.RELEASE)
+
+    2022-10-03 15:22:24.834  INFO 8 --- [           main] c.e.demo.SampleDataJdbcApplication       : Starting SampleDataJdbcApplication v0.0.1-SNAPSHOT on b24e5f9baba8 with PID 8 (/app.jar started by root in /)
+    2022-10-03 15:22:24.838  INFO 8 --- [           main] c.e.demo.SampleDataJdbcApplication       : No active profile set, falling back to default profiles: default
+    2022-10-03 15:22:25.962  INFO 8 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+    2022-10-03 15:22:25.991  INFO 8 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+    2022-10-03 15:22:25.991  INFO 8 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.13
+    2022-10-03 15:22:26.001  INFO 8 --- [           main] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/usr/lib/jvm/java-1.8-openjdk/jre/lib/amd64/server:/usr/lib/jvm/java-1.8-openjdk/jre/lib/amd64:/usr/lib/jvm/java-1.8-openjdk/jre/../lib/amd64:/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib]
+    2022-10-03 15:22:26.064  INFO 8 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+    2022-10-03 15:22:26.064  INFO 8 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1189 ms
+    2022-10-03 15:22:26.164  INFO 8 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+    2022-10-03 15:22:26.418  INFO 8 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+    2022-10-03 15:22:26.628  INFO 8 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+    2022-10-03 15:22:26.832  INFO 8 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+    2022-10-03 15:22:26.835  INFO 8 --- [           main] c.e.demo.SampleDataJdbcApplication       : Started SampleDataJdbcApplication in 2.3 seconds (JVM running for 2.774)
+
+    ┌<▸> ~/g/demo-jdbc
+    └➤ curl 0.0.0.0:8080/prediction
+    Winners [winner=21, frequency=13.5639 %]<p/>Winners [winner=7, frequency=7.7793 %]<p/>Winners [winner=49, frequency=5.6587 %]<p/>Winners [winner=31, frequency=13.5011 %]<p/>Winners [winner=4, frequency=5.3649 %]<p/>Stars [star=9, frequency=10.0169 %]<p/>Stars [star=3, frequency=19.045 %]<p/>%
