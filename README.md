@@ -3,45 +3,45 @@ A tiny demo with spring-boot-jdbc support
 
 # To compile
 
-  mvn clean install
+    mvn clean install
 
 # To create docker image
-  ┌<▸> ~/g/demo-jdbc
-  └➤ docker build -t euromillions-test-java8 .
-  [+] Building 26.2s (15/15) FINISHED                                                                                                                                                                             
-   => [internal] load build definition from Dockerfile                                                                                                                                                       0.0s
-   => => transferring dockerfile: 515B                                                                                                                                                                       0.0s
-   => [internal] load .dockerignore                                                                                                                                                                          0.0s
-   => => transferring context: 2B                                                                                                                                                                            0.0s
-   => [internal] load metadata for docker.io/library/openjdk:8-jdk-alpine                                                                                                                                    1.1s
-   => [internal] load metadata for docker.io/library/openjdk:8-jdk                                                                                                                                           1.2s
-   => [internal] load build context                                                                                                                                                                          0.0s
-   => => transferring context: 5.89kB                                                                                                                                                                        0.0s
-   => CACHED [stage-1 1/6] FROM docker.io/library/openjdk:8-jdk-alpine@sha256:94792824df2df33402f201713f932b58cb9de94a0cd524164a0f2283343547b3                                                               0.0s
-   => CACHED [build 1/5] FROM docker.io/library/openjdk:8-jdk@sha256:86e863cc57215cfb181bd319736d0baf625fe8f150577f9eb58bd937f5452cb8                                                                        0.0s
-   => [build 2/5] ADD . .                                                                                                                                                                                    0.0s
-   => [build 3/5] RUN ./mvnw clean install                                                                                                                                                                  24.0s
-   => [build 4/5] RUN mv /$JAR_PATH/target/demo-jdbc-0.0.1-SNAPSHOT.jar /app.jar                                                                                                                             0.4s
-   => [stage-1 2/6] COPY --from=build /app.jar /                                                                                                                                                             0.0s
-   => [stage-1 3/6] COPY clean_final_output_winners.txt /                                                                                                                                                    0.0s
-   => [stage-1 4/6] COPY clean_final_output_star.txt /                                                                                                                                                       0.0s
-   => [stage-1 5/6] COPY entrypoint.sh /entrypoint.sh                                                                                                                                                        0.0s
-   => exporting to image                                                                                                                                                                                     0.1s
-   => => exporting layers                                                                                                                                                                                    0.1s
-   => => writing image sha256:599128fdfc253c6d378db4df5b58783e76b4ee8bf7bdad08daec952328ea0e7f                                                                                                               0.0s
-   => => naming to docker.io/library/euromillions-test-java8                                                                                                                                                 0.0s
-  ┌<▸> ~/g/demo-jdbc
-  └➤ docker image ls                          
-  REPOSITORY                       TAG       IMAGE ID       CREATED          SIZE
-  euromillions-test-java8          latest    599128fdfc25   7 seconds ago    124MB
-  euromillions-test-java11         latest    5875459e1022   3 minutes ago    674MB
-  euromillions-test-distroless     latest    6e4e521ff41d   12 minutes ago   230MB
-  euromillions-test                latest    96eed90303fe   4 hours ago      124MB
-  <none>                           <none>    ce3db7785261   4 hours ago      124MB
-  <none>                           <none>    ac3b38c521bf   4 hours ago      124MB
-  flask-hello-world                latest    758eeb24f3cf   5 hours ago      65.4MB
-  aquasec/trivy-docker-extension   0.4.3     c05a478f9322   4 months ago     13.2MB
-  xer0dayz/sn1per                  latest    4414ccd4442d   12 months ago    7.04GB
+    ┌<▸> ~/g/demo-jdbc
+    └➤ docker build -t euromillions-test-java8 .
+    [+] Building 26.2s (15/15) FINISHED                                                                                                                                                                             
+     => [internal] load build definition from Dockerfile                                                                                                                                                       0.0s
+     => => transferring dockerfile: 515B                                                                                                                                                                       0.0s
+     => [internal] load .dockerignore                                                                                                                                                                          0.0s
+     => => transferring context: 2B                                                                                                                                                                            0.0s
+     => [internal] load metadata for docker.io/library/openjdk:8-jdk-alpine                                                                                                                                    1.1s
+     => [internal] load metadata for docker.io/library/openjdk:8-jdk                                                                                                                                           1.2s
+     => [internal] load build context                                                                                                                                                                          0.0s
+     => => transferring context: 5.89kB                                                                                                                                                                        0.0s
+     => CACHED [stage-1 1/6] FROM docker.io/library/openjdk:8-jdk-alpine@sha256:94792824df2df33402f201713f932b58cb9de94a0cd524164a0f2283343547b3                                                               0.0s
+     => CACHED [build 1/5] FROM docker.io/library/openjdk:8-jdk@sha256:86e863cc57215cfb181bd319736d0baf625fe8f150577f9eb58bd937f5452cb8                                                                        0.0s
+     => [build 2/5] ADD . .                                                                                                                                                                                    0.0s
+     => [build 3/5] RUN ./mvnw clean install                                                                                                                                                                  24.0s
+     => [build 4/5] RUN mv /$JAR_PATH/target/demo-jdbc-0.0.1-SNAPSHOT.jar /app.jar                                                                                                                             0.4s
+     => [stage-1 2/6] COPY --from=build /app.jar /                                                                                                                                                             0.0s
+     => [stage-1 3/6] COPY clean_final_output_winners.txt /                                                                                                                                                    0.0s
+     => [stage-1 4/6] COPY clean_final_output_star.txt /                                                                                                                                                       0.0s
+     => [stage-1 5/6] COPY entrypoint.sh /entrypoint.sh                                                                                                                                                        0.0s
+     => exporting to image                                                                                                                                                                                     0.1s
+     => => exporting layers                                                                                                                                                                                    0.1s
+     => => writing image sha256:599128fdfc253c6d378db4df5b58783e76b4ee8bf7bdad08daec952328ea0e7f                                                                                                               0.0s
+     => => naming to docker.io/library/euromillions-test-java8                                                                                                                                                 0.0s
+    ┌<▸> ~/g/demo-jdbc
+    └➤ docker image ls                          
+    REPOSITORY                       TAG       IMAGE ID       CREATED          SIZE
+    euromillions-test-java8          latest    599128fdfc25   7 seconds ago    124MB
+    euromillions-test-java11         latest    5875459e1022   3 minutes ago    674MB
+    euromillions-test-distroless     latest    6e4e521ff41d   12 minutes ago   230MB
+    euromillions-test                latest    96eed90303fe   4 hours ago      124MB
+    <none>                           <none>    ce3db7785261   4 hours ago      124MB
+    <none>                           <none>    ac3b38c521bf   4 hours ago      124MB
+    flask-hello-world                latest    758eeb24f3cf   5 hours ago      65.4MB
+    aquasec/trivy-docker-extension   0.4.3     c05a478f9322   4 months ago     13.2MB
+    xer0dayz/sn1per                  latest    4414ccd4442d   12 months ago    7.04GB
 
 # To Run
 
