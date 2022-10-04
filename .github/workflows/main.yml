@@ -35,4 +35,4 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
       - name: run dockerfile
-        uses: actions/demo-jdbc
+        uses: actions/demo-jdbc@v1
