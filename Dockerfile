@@ -1,6 +1,7 @@
 # build stage build the jar with all our resources
 FROM openjdk:8-jdk as build
-
+ARG PROFILE
+RUN echo "Here is the build env: $PROFILE!"
 VOLUME /tmp
 WORKDIR /
 ADD . .
