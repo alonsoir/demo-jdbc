@@ -36,3 +36,10 @@ jobs:
           cache-to: type=inline
           tags: aironman/euromillions-test-java8:latest
           build-args: PROFILE=nectar,ARG2=test
+
+      - name: Discord notification
+        env:
+            DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+            args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed.'
