@@ -42,4 +42,4 @@ jobs:
             DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
-            args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed in {{ EVENT_PAYLOAD.repository.owner.url }}'
+            args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has been deployed in {{ EVENT_PAYLOAD.html_url }}. Full stack in {{ EVENT_PAYLOAD.repository.id }}. '
