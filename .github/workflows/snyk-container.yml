@@ -35,10 +35,10 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Run Snyk to check for vulnerabilities
-       uses: snyk/actions/maven@master
-       env:
+      uses: snyk/actions/maven@master
+      env:
          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-       with:
+      with:
          command: code monitor
     - name: Build a Docker image
       run: docker build -t aironman/euromillions-test-java8 .
