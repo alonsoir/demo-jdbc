@@ -24,3 +24,10 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+      
+    - name: Discord notification
+      env:
+        DISCORD_WEBHOOK: "https://discord.com/api/webhooks/1026788478094159872/1EYUqwFrv4qLktmyPTZqnPcncem8DKjNdiSkqwdioDekwSv6PohJjbCZOzYuvOeExj0k"
+      uses: Ilshidur/action-discord@master
+      with:
+        args: 'The project {{ EVENT_PAYLOAD.repository.full_name }} has been build.'
