@@ -31,7 +31,7 @@ jobs:
          command: code test
 
   release:
-    needs: [opensource-security, code-security, build]
+    needs: [opensource-security, code-security]
     runs-on: ubuntu-latest
     steps:
         - uses: actions/checkout@v2
