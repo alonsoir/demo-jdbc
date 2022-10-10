@@ -49,5 +49,16 @@
 			</plugin>
 		</plugins>
 	</build>
+	<scm>
+       		<developerConnection>scm:git:https://github.com/alonsoir/demo-jdbc.git</developerConnection>
+       		<tag>HEAD</tag>
+   	</scm>
+   	<distributionManagement>
+       		<repository>
+			<id>github</id>
+			<name>GitHub</name>
+			<url>https://maven.pkg.github.com/alonsoir/demo-jdbc</url>
+       		</repository>
+   	</distributionManagement>
 
 </project>
