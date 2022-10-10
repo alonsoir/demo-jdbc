@@ -43,7 +43,7 @@ jobs:
             cache: maven
         - name: Set Git user
           run: |
-            git config user.email ${{ secrets.GITHUB_EMAIL }}
+            git config user.email ${{ secrets.EMAIL }}
             git config user.name "GitHub Actions"
         - name: Publish JAR
           run: mvn -B release:prepare release:perform -DskipTests
