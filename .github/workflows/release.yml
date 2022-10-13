@@ -18,6 +18,8 @@ jobs:
        uses: snyk/actions/maven@master
        env:
          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+       with:
+        command: monitor
 
   code-security:
    runs-on: ubuntu-latest
